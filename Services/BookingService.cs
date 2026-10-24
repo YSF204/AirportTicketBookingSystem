@@ -24,7 +24,7 @@ namespace AirportTicketBookingSystem.Services
 
         public Flight? FindFlight(string flightId)
         {
-            var flights =  flightRepository.GetFlights();
+            var flights = flightRepository.GetFlights();
             return flights.FirstOrDefault(f => f.Id == flightId);
         }
 
@@ -35,17 +35,17 @@ namespace AirportTicketBookingSystem.Services
 
         }
 
-        public Booking BookFlight(string passengerId, string flightId , TicketClass ticketClass)
+        public Booking BookFlight(string passengerId, string flightId, TicketClass ticketClass)
         {
             var passenger = FindPassenger(passengerId);
             var flight = FindFlight(flightId);
 
-            if (passenger == null )
+            if (passenger == null)
             {
                 throw new ArgumentException($"Passenger with ID {passengerId} not found.");
             }
 
-            if (flight == null )
+            if (flight == null)
             {
                 throw new ArgumentException($"Flight with ID {flightId} not found.");
             }
@@ -70,6 +70,65 @@ namespace AirportTicketBookingSystem.Services
             return booking;
         }
 
+        
+
+        public List<Booking> GetBookingForPassenger(string passengerId)
+        {
+            var bookings = bookingRepository.GetBookings();
+            return bookings.Where(b => b.PassengerId == passengerId).ToList();
+        }
+
+        public bool CancelBooking(string bookingId , string passengerId)
+        {
+
+            var bookings = bookingRepository.GetBookings();
+            var booking = bookings.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
+            if (booking == null)
+            {
+                return false;
+            }
+
+            bookings.Remove(booking);
+            bookingRepository.SaveBookings(bookings);
+
+            return true;
+        }
+
+
+
+        public bool UpdateBookingTicketClass(string bookingId , string passengerId, TicketClass ticketClass)
+        {
+            var booking = bookingRepository.GetBookings();
+            var existingBookings = booking.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
+
+            if(existingBookings == null)
+            {
+                return false;
+            };
+
+            var flight = FindFlight(existingBookings.FlightId);
+            if (flight == null)
+            {
+                return false;
+            }
+
+
+            existingBookings.TicketClass = ticketClass;
+            existingBookings.PricePaid = flight.GetPrice(ticketClass);
+
+            bookingRepository.SaveBookings(booking);
+
+            return true;
+
+        }
+
+        public Booking? GetBookingForPassenger(string bookingId , string passengerId)
+        {
+            var bookings = bookingRepository.GetBookings();
+            return bookings.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
         }
     }
+        
+
+}
 
