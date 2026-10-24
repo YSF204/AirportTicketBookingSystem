@@ -72,7 +72,7 @@ namespace AirportTicketBookingSystem.Services
 
         
 
-        public List<Booking> GetBookingForPassenger(string passengerId)
+        public List<Booking> GetBookingsForPassenger(string passengerId)
         {
             var bookings = bookingRepository.GetBookings();
             return bookings.Where(b => b.PassengerId == passengerId).ToList();
