@@ -3,6 +3,7 @@
 using AirportTicketBookingSystem.Models;
 using AirportTicketBookingSystem.Repositories;
 using System.Linq;
+using System.Net;
 namespace AirportTicketBookingSystem.Services
 {
     public class BookingService
@@ -70,7 +71,7 @@ namespace AirportTicketBookingSystem.Services
             return booking;
         }
 
-        
+
 
         public List<Booking> GetBookingsForPassenger(string passengerId)
         {
@@ -78,7 +79,7 @@ namespace AirportTicketBookingSystem.Services
             return bookings.Where(b => b.PassengerId == passengerId).ToList();
         }
 
-        public bool CancelBooking(string bookingId , string passengerId)
+        public bool CancelBooking(string bookingId, string passengerId)
         {
 
             var bookings = bookingRepository.GetBookings();
@@ -96,15 +97,16 @@ namespace AirportTicketBookingSystem.Services
 
 
 
-        public bool UpdateBookingTicketClass(string bookingId , string passengerId, TicketClass ticketClass)
+        public bool UpdateBookingTicketClass(string bookingId, string passengerId, TicketClass ticketClass)
         {
             var booking = bookingRepository.GetBookings();
             var existingBookings = booking.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
 
-            if(existingBookings == null)
+            if (existingBookings == null)
             {
                 return false;
-            };
+            }
+            ;
 
             var flight = FindFlight(existingBookings.FlightId);
             if (flight == null)
@@ -122,13 +124,103 @@ namespace AirportTicketBookingSystem.Services
 
         }
 
-        public Booking? GetBookingForPassenger(string bookingId , string passengerId)
+        public Booking? GetBookingForPassenger(string bookingId, string passengerId)
         {
             var bookings = bookingRepository.GetBookings();
             return bookings.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
         }
-    }
-        
 
-}
+        public List<Booking> GetBookingsForFlight(string flightId)
+        {
+            var bookings = bookingRepository.GetBookings();
+            return bookings.Where(booking => booking.FlightId.Equals(flightId,
+                    StringComparison.OrdinalIgnoreCase)).ToList();
+
+        }
+
+        public List<Booking> GetBookingByPriceRange(decimal minPrice, decimal maxPrice)
+        {
+
+            if (minPrice > maxPrice)
+            {
+                throw new ArgumentException("Minimum price cannot be greater than maximum price.");
+
+            }
+            else
+            {
+                var bookings = bookingRepository.GetBookings();
+                return bookings.Where(booking => booking.PricePaid >= minPrice && booking.PricePaid <= maxPrice).ToList();
+
+            }
+        }
+
+        public List<Booking> GetBookingByTicketClass(TicketClass ticketClass)
+        {
+
+            var bookings = bookingRepository.GetBookings();
+            return bookings.Where(booking => booking.TicketClass == ticketClass).ToList();
+        }
+
+        public List<Booking> GetBookingByPassenger(string passengerId)
+        {
+            var bookings = bookingRepository.GetBookings();
+            return bookings.Where(booking => booking.PassengerId.Equals(passengerId, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        }
+
+        public List<Booking> GetBookingsByDepartureDate(DateTime date)
+        {
+            var bookings = bookingRepository.GetBookings();
+            var flights = flightRepository.GetFlights();
+
+            return bookings
+                .Where(booking => flights.Any(flight =>
+                    flight.Id.Equals(
+                        booking.FlightId,
+                        StringComparison.OrdinalIgnoreCase) &&
+                    flight.DepartureDate.Date == date.Date))
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByDepartureCountry(string country)
+        {
+            var bookings = bookingRepository.GetBookings();
+            var flights = flightRepository.GetFlights();
+
+            return bookings.Where(booking => flights.Any(flight =>
+                flight.Id.Equals(booking.FlightId, StringComparison.OrdinalIgnoreCase) &&
+                flight.DepartureCountry.Equals(country, StringComparison.OrdinalIgnoreCase))).ToList();
+        }
+
+        public List<Booking> GetBookingsByDestinationCountry(string country)
+        {
+            var bookings = bookingRepository.GetBookings();
+            var flights = flightRepository.GetFlights();
+
+            return bookings.Where(booking => flights.Any(flight =>
+                flight.Id.Equals(booking.FlightId, StringComparison.OrdinalIgnoreCase) &&
+                flight.DestinationCountry.Equals(country, StringComparison.OrdinalIgnoreCase))).ToList();
+        }
+
+        public List<Booking> GetBookingsByDepartureAirport(string airport)
+        {
+            var bookings = bookingRepository.GetBookings();
+            var flights = flightRepository.GetFlights();
+
+            return bookings.Where(booking => flights.Any(flight =>
+                flight.Id.Equals(booking.FlightId, StringComparison.OrdinalIgnoreCase) &&
+                flight.DepartureAirport.Equals(airport, StringComparison.OrdinalIgnoreCase))).ToList();
+        }
+
+        public List<Booking> GetBookingsByArrivalAirport(string airport)
+        {
+            var bookings = bookingRepository.GetBookings();
+            var flights = flightRepository.GetFlights();
+
+            return bookings.Where(booking => flights.Any(flight =>
+                flight.Id.Equals(booking.FlightId, StringComparison.OrdinalIgnoreCase) &&
+                flight.ArrivalAirport.Equals(airport, StringComparison.OrdinalIgnoreCase))).ToList();
+        }
+    }
+    }
 
