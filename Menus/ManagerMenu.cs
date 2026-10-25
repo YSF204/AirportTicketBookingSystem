@@ -36,7 +36,7 @@ public class ManagerMenu
             Console.WriteLine("A. Load Flights from CSV file");
             Console.Write("Choose an option: ");
 
-            switch (Console.ReadLine().ToUpper())
+            switch (Console.ReadLine()?.ToUpper())
             {
                 case "A": LoadFlightsFromCSV(); break;
                 case "10": GetBookingsByArrivalAirport(); break;

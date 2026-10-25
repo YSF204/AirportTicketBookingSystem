@@ -1,7 +1,6 @@
 using AirportTicketBookingSystem.Menus;
 using AirportTicketBookingSystem.Repositories;
 using AirportTicketBookingSystem.Services;
-using AirportTicketBookingSystem.Util;
 
 var flightRepository = new FlightRepository();
 var bookingRepository = new BookingRepository();
@@ -13,7 +12,22 @@ var bookingService = new BookingService(
     flightRepository,
     passengerRepository,
     bookingRepository);
-var reader = new Reader();
-
 var managerMenu = new ManagerMenu(flightService, bookingService);
-managerMenu.Run();
+var passengerMenu = new PassengerMenu(flightService, bookingService);
+
+Console.WriteLine("1. Manager");
+Console.WriteLine("2. Passenger");
+Console.Write("Choose a menu: ");
+
+switch (Console.ReadLine())
+{
+    case "1":
+        managerMenu.Run();
+        break;
+    case "2":
+        passengerMenu.Run();
+        break;
+    default:
+        Console.WriteLine("Invalid option.");
+        break;
+}

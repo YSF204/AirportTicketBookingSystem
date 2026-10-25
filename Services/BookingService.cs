@@ -32,8 +32,33 @@ namespace AirportTicketBookingSystem.Services
         public Passenger? FindPassenger(string passengerId)
         {
             var passengers = passengerRepository.GetPassengers();
-            return passengers.FirstOrDefault(p => p.Id == passengerId);
+            return passengers.FirstOrDefault(p => p.Id.Equals(
+                passengerId,
+                StringComparison.OrdinalIgnoreCase));
 
+        }
+
+        public Passenger? RegisterPassenger(string passengerId)
+        {
+            passengerId = passengerId.Trim();
+            if (string.IsNullOrWhiteSpace(passengerId))
+            {
+                return null;
+            }
+
+            var passengers = passengerRepository.GetPassengers();
+            if (passengers.Any(passenger => passenger.Id.Equals(
+                    passengerId,
+                    StringComparison.OrdinalIgnoreCase)))
+            {
+                return null;
+            }
+
+            var passenger = new Passenger { Id = passengerId };
+            passengers.Add(passenger);
+            passengerRepository.SavePassengers(passengers);
+
+            return passenger;
         }
 
         public Booking BookFlight(string passengerId, string flightId, TicketClass ticketClass)
