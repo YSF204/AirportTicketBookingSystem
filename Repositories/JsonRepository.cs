@@ -1,4 +1,4 @@
-﻿namespace AirportTicketBookingSystem.Repositories
+namespace AirportTicketBookingSystem.Repositories
 {
     public class JsonRepository<T>
     {
@@ -6,7 +6,8 @@
         private readonly string filePath;
         public JsonRepository(string fileName)
         {
-            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            filePath = Path.GetFullPath(Path.Combine(
+                AppContext.BaseDirectory, "..", "..", "..", fileName));
         }
         public string ReadJson()
         {
@@ -37,3 +38,4 @@
 
     }
 }
+

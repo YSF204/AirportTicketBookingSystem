@@ -1,6 +1,7 @@
 using System.Globalization;
 using AirportTicketBookingSystem.Models;
 using AirportTicketBookingSystem.Services;
+using AirportTicketBookingSystem.Util;
 
 namespace AirportTicketBookingSystem.Menus;
 
@@ -31,10 +32,13 @@ public class ManagerMenu
             Console.WriteLine("2. Find bookings by flight");
             Console.WriteLine("1. Add a flight");
             Console.WriteLine("0. Exit");
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine("A. Load Flights from CSV file");
             Console.Write("Choose an option: ");
 
-            switch (Console.ReadLine())
+            switch (Console.ReadLine().ToUpper())
             {
+                case "A": LoadFlightsFromCSV(); break;
                 case "10": GetBookingsByArrivalAirport(); break;
                 case "9": GetBookingsByDepartureAirport(); break;
                 case "8": GetBookingsByDestinationCountry(); break;
@@ -261,5 +265,25 @@ public class ManagerMenu
                 $"Booking Date: {booking.BookingDate:dd MMM yyyy, h:mm tt}");
             Console.WriteLine(new string('-', 50));
         }
+
+    }
+
+    private void LoadFlightsFromCSV()
+    {
+        var flights = Reader.ReadCsv();
+
+        if (flights.Count == 0)
+        {
+            Console.WriteLine("No flights were loaded from the CSV file.");
+            return;
+        }
+
+        var errors = flightService.AddFlights(flights, out int addedCount);
+        foreach (var error in errors)
+        {
+            Console.WriteLine(error);
+        }
+
+        Console.WriteLine($"Imported {addedCount} of {flights.Count} flights.");
     }
 }

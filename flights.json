@@ -1,0 +1,167 @@
+[
+  {
+    "Id": "FL001",
+    "DepartureCountry": "Jordan",
+    "DestinationCountry": "Turkey",
+    "DepartureAirport": "",
+    "ArrivalAirport": "",
+    "EconomyPrice": 2222200,
+    "BusinessPrice": 0,
+    "FirstClassPrice": 0,
+    "DepartureDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "FL002",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Egypt",
+    "DepartureAirport": "",
+    "ArrivalAirport": "",
+    "EconomyPrice": 150,
+    "BusinessPrice": 0,
+    "FirstClassPrice": 0,
+    "DepartureDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "FL003",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "",
+    "ArrivalAirport": "",
+    "EconomyPrice": 180,
+    "BusinessPrice": 0,
+    "FirstClassPrice": 0,
+    "DepartureDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "FL003",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "",
+    "ArrivalAirport": "",
+    "EconomyPrice": 180,
+    "BusinessPrice": 0,
+    "FirstClassPrice": 0,
+    "DepartureDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "FL003",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "",
+    "ArrivalAirport": "",
+    "EconomyPrice": 180,
+    "BusinessPrice": 0,
+    "FirstClassPrice": 0,
+    "DepartureDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "F001",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "Hebron",
+    "ArrivalAirport": "Amman",
+    "EconomyPrice": 100,
+    "BusinessPrice": 250,
+    "FirstClassPrice": 400,
+    "DepartureDate": "2026-10-31T15:06:40.0445942+02:00"
+  },
+  {
+    "Id": "FL123",
+    "DepartureCountry": "USA",
+    "DestinationCountry": "UK",
+    "DepartureAirport": "JFK",
+    "ArrivalAirport": "LHR",
+    "EconomyPrice": 500,
+    "BusinessPrice": 1500,
+    "FirstClassPrice": 3000,
+    "DepartureDate": "2026-11-03T22:10:57.2872836+02:00"
+  },
+  {
+    "Id": "12",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "ramon",
+    "ArrivalAirport": "alia",
+    "EconomyPrice": 450,
+    "BusinessPrice": 700,
+    "FirstClassPrice": 1000,
+    "DepartureDate": "2026-10-30T12:30:00"
+  },
+  {
+    "Id": "123123",
+    "DepartureCountry": "pp",
+    "DestinationCountry": "jj",
+    "DepartureAirport": "pa",
+    "ArrivalAirport": "ap",
+    "EconomyPrice": 100,
+    "BusinessPrice": 200,
+    "FirstClassPrice": 300,
+    "DepartureDate": "2027-10-30T01:30:00"
+  },
+  {
+    "Id": "55",
+    "DepartureCountry": "aa",
+    "DestinationCountry": "ss",
+    "DepartureAirport": "dd",
+    "ArrivalAirport": "ff",
+    "EconomyPrice": 11,
+    "BusinessPrice": 22,
+    "FirstClassPrice": 33,
+    "DepartureDate": "2026-10-30T02:30:00"
+  },
+  {
+    "Id": "8eb470de-0646-4142-8fa4-af5b3a410c15",
+    "DepartureCountry": "pa",
+    "DestinationCountry": "ps",
+    "DepartureAirport": "pd",
+    "ArrivalAirport": "pg",
+    "EconomyPrice": 11,
+    "BusinessPrice": 22,
+    "FirstClassPrice": 33,
+    "DepartureDate": "2027-10-30T02:30:00"
+  },
+  {
+    "Id": "TEST-FLT-001",
+    "DepartureCountry": "Sampleland",
+    "DestinationCountry": "Demo Republic",
+    "DepartureAirport": "TST",
+    "ArrivalAirport": "DMO",
+    "EconomyPrice": 125,
+    "BusinessPrice": 250,
+    "FirstClassPrice": 400,
+    "DepartureDate": "2030-06-15T14:30:00"
+  },
+  {
+    "Id": "CSV-FLT-001",
+    "DepartureCountry": "Palestine",
+    "DestinationCountry": "Jordan",
+    "DepartureAirport": "Hebron",
+    "ArrivalAirport": "Amman",
+    "EconomyPrice": 120,
+    "BusinessPrice": 300,
+    "FirstClassPrice": 550,
+    "DepartureDate": "2026-11-05T09:30:00"
+  },
+  {
+    "Id": "CSV-FLT-002",
+    "DepartureCountry": "Jordan",
+    "DestinationCountry": "Turkey",
+    "DepartureAirport": "Amman",
+    "ArrivalAirport": "Istanbul",
+    "EconomyPrice": 180,
+    "BusinessPrice": 420,
+    "FirstClassPrice": 800,
+    "DepartureDate": "2026-11-12T14:15:00"
+  },
+  {
+    "Id": "CSV-FLT-003",
+    "DepartureCountry": "United States",
+    "DestinationCountry": "United Kingdom",
+    "DepartureAirport": "JFK",
+    "ArrivalAirport": "LHR",
+    "EconomyPrice": 500,
+    "BusinessPrice": 1400,
+    "FirstClassPrice": 2800,
+    "DepartureDate": "2026-12-01T08:45:00"
+  }
+]

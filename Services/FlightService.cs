@@ -34,6 +34,42 @@ namespace AirportTicketBookingSystem.Services
             return errors;
         }
 
+        public List<string> AddFlights(List<Flight> newFlights, out int addedCount)
+        {
+            var existingFlights = flightRepository.GetFlights();
+            var flightsToCheck = new List<Flight>(existingFlights);
+            var errors = new List<string>();
+            addedCount = 0;
+
+            for (int i = 0; i < newFlights.Count; i++)
+            {
+                var flight = newFlights[i];
+                var flightErrors = flightValidator.ValidateFlight(flight, flightsToCheck);
+
+                if (flightErrors.Count > 0)
+                {
+                    foreach (var error in flightErrors)
+                    {
+                        errors.Add($"Row {i + 2}: {error}");
+                    }
+                }
+                else
+                {
+                    existingFlights.Add(flight);
+                    addedCount++;
+                }
+
+                flightsToCheck.Add(flight);
+            }
+
+            if (addedCount > 0)
+            {
+                flightRepository.SaveFlights(existingFlights);
+            }
+
+            return errors;
+        }
+
 
         public List<Flight> GetAllFlights()
         {

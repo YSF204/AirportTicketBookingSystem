@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "e4e33b32-529d-4b86-ad2e-7ed821241c8e",
+    "PassengerId": "P001",
+    "FlightId": "F001",
+    "TicketClass": 0,
+    "PricePaid": 100,
+    "BookingDate": "2026-10-24T12:06:40.0665103Z"
+  },
+  {
+    "Id": "c9c3507b-c893-40b7-87a5-548b32993566",
+    "PassengerId": "P001",
+    "FlightId": "F001",
+    "TicketClass": 1,
+    "PricePaid": 250,
+    "BookingDate": "2026-10-24T12:06:40.0808521Z"
+  },
+  {
+    "Id": "1919e444-eaac-4363-bedd-dd1b11dcafb5",
+    "PassengerId": "P001",
+    "FlightId": "F001",
+    "TicketClass": 0,
+    "PricePaid": 100,
+    "BookingDate": "2026-10-24T12:06:48.1523227Z"
+  },
+  {
+    "Id": "640128d3-88f7-4807-bbb2-36cc3cafa1a4",
+    "PassengerId": "P001",
+    "FlightId": "F001",
+    "TicketClass": 1,
+    "PricePaid": 250,
+    "BookingDate": "2026-10-24T12:06:48.1741972Z"
+  },
+  {
+    "Id": "TEST-BOOK-001",
+    "PassengerId": "TEST-PAX-001",
+    "FlightId": "TEST-FLT-001",
+    "TicketClass": 1,
+    "PricePaid": 125,
+    "BookingDate": "2026-10-25T16:34:21.4364904Z"
+  }
+]
