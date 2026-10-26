@@ -36,10 +36,10 @@ namespace AirportTicketBookingSystem.Util
                         DestinationCountry = values[2].Trim(),
                         DepartureAirport = values[3].Trim(),
                         ArrivalAirport = values[4].Trim(),
-                        EconomyPrice = decimal.Parse(values[5], CultureInfo.InvariantCulture),
-                        BusinessPrice = decimal.Parse(values[6], CultureInfo.InvariantCulture),
-                        FirstClassPrice = decimal.Parse(values[7], CultureInfo.InvariantCulture),
-                        DepartureDate = DateTime.Parse(values[8], CultureInfo.InvariantCulture)
+                        EconomyPrice = decimal.Parse(values[5]),
+                        BusinessPrice = decimal.Parse(values[6]),
+                        FirstClassPrice = decimal.Parse(values[7]),
+                        DepartureDate = DateTime.Parse(values[8])
                     });
                 }
                 catch (Exception error) when (

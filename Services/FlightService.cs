@@ -5,7 +5,7 @@ using AirportTicketBookingSystem.Validators;
 
 namespace AirportTicketBookingSystem.Services
 {
-    public class FlightService
+    public class FlightService : IFlightService
     {
         private readonly FlightRepository flightRepository;
         private readonly FlightValidator flightValidator;

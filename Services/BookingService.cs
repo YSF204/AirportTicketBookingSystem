@@ -5,7 +5,7 @@ using AirportTicketBookingSystem.Repositories;
 using System.Linq;
 namespace AirportTicketBookingSystem.Services
 {
-    public class BookingService
+    public class BookingService : IBookingService
     {
         private readonly FlightRepository flightRepository;
         private readonly PassengerRepository passengerRepository;

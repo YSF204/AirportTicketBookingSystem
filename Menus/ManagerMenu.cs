@@ -7,10 +7,10 @@ namespace AirportTicketBookingSystem.Menus;
 
 public class ManagerMenu
 {
-    private readonly FlightService flightService;
+    private readonly IFlightService flightService;
     private readonly BookingService bookingService;
 
-    public ManagerMenu(FlightService flightService, BookingService bookingService)
+    public ManagerMenu(IFlightService flightService, BookingService bookingService)
     {
         this.flightService = flightService;
         this.bookingService = bookingService;
