@@ -6,9 +6,9 @@ namespace AirportTicketBookingSystem.Menus;
 public class PassengerMenu
 {
     private readonly IFlightService flightService;
-    private readonly BookingService bookingService;
+    private readonly IBookingService bookingService;
 
-    public PassengerMenu(IFlightService flightService, BookingService bookingService)
+    public PassengerMenu(IFlightService flightService, IBookingService bookingService)
     {
         this.flightService = flightService;
         this.bookingService = bookingService;

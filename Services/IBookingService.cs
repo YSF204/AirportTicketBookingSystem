@@ -9,8 +9,6 @@ namespace AirportTicketBookingSystem.Services
     public interface IBookingService
     {
 
-
-
         /// <summary>
         /// it finds the flight by the flight Id and returns the flights if exists,
         /// otherwise it returns null.
@@ -51,7 +49,7 @@ namespace AirportTicketBookingSystem.Services
         /// <summary>
         /// it retrieves the booking with the specified booking Id for the given passenger Id.
         /// </summary>
-        Booking GetBookingForPassenger(string bookingId, string passengerId);
+        Booking? GetBookingForPassenger(string bookingId, string passengerId);
 
         /// <summary>
         /// it retrieves all bookings associated with the specified flight Id.

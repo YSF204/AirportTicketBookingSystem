@@ -3,7 +3,7 @@ using AirportTicketBookingSystem.Models;
 namespace AirportTicketBookingSystem.Services
 {
     /// <summary>
-    /// Defines flight search, import, and validation operations available to the application.
+    /// this interface defines the operations for the required services for the flight management system.
     /// </summary>
     public interface IFlightService
     {
