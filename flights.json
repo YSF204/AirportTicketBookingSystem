@@ -8,7 +8,7 @@
     "EconomyPrice": 2222200,
     "BusinessPrice": 0,
     "FirstClassPrice": 0,
-    "DepartureDate": "0001-01-01T00:00:00"
+    "DepartureDate": "2026-11-03T00:00:00"
   },
   {
     "Id": "FL002",
@@ -19,40 +19,18 @@
     "EconomyPrice": 150,
     "BusinessPrice": 0,
     "FirstClassPrice": 0,
-    "DepartureDate": "0001-01-01T00:00:00"
+    "DepartureDate": "2026-11-03:00:00"
   },
   {
     "Id": "FL003",
     "DepartureCountry": "Palestine",
     "DestinationCountry": "Jordan",
-    "DepartureAirport": "",
-    "ArrivalAirport": "",
+    "DepartureAirport": "BENGORION",
+    "ArrivalAirport": "ALIA",
     "EconomyPrice": 180,
-    "BusinessPrice": 0,
-    "FirstClassPrice": 0,
-    "DepartureDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Id": "FL003",
-    "DepartureCountry": "Palestine",
-    "DestinationCountry": "Jordan",
-    "DepartureAirport": "",
-    "ArrivalAirport": "",
-    "EconomyPrice": 180,
-    "BusinessPrice": 0,
-    "FirstClassPrice": 0,
-    "DepartureDate": "0001-01-01T00:00:00"
-  },
-  {
-    "Id": "FL003",
-    "DepartureCountry": "Palestine",
-    "DestinationCountry": "Jordan",
-    "DepartureAirport": "",
-    "ArrivalAirport": "",
-    "EconomyPrice": 180,
-    "BusinessPrice": 0,
-    "FirstClassPrice": 0,
-    "DepartureDate": "0001-01-01T00:00:00"
+    "BusinessPrice": 300,
+    "FirstClassPrice": 500,
+    "DepartureDate": "2026-11-03T00:00:00"
   },
   {
     "Id": "F001",

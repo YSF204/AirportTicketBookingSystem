@@ -30,7 +30,7 @@ public class PassengerMenu
             Console.WriteLine("1. Search flights and book");
             Console.WriteLine("2. View my bookings");
             Console.WriteLine("3. Cancel a booking");
-            Console.WriteLine("4. Change booking class");
+            Console.WriteLine("4. Modify a booking");
             Console.WriteLine("0. Exit");
             Console.Write("Choose an option: ");
 
@@ -39,7 +39,7 @@ public class PassengerMenu
                 case "1": SearchFlightsAndBook(passengerId); break;
                 case "2": ViewBookings(passengerId); break;
                 case "3": CancelBooking(passengerId); break;
-                case "4": ChangeBookingClass(passengerId); break;
+                case "4": ModifyBooking(passengerId); break;
                 case "0": return;
                 default: Console.WriteLine("Invalid option."); break;
             }
@@ -122,12 +122,24 @@ public class PassengerMenu
             return;
         }
 
+        Console.WriteLine("\nMatching flights:");
         foreach (var flight in flights)
         {
-            Console.WriteLine(
-                $"{flight.Id} | {flight.DepartureCountry} ({flight.DepartureAirport}) to " +
-                $"{flight.DestinationCountry} ({flight.ArrivalAirport}) | " +
-                $"{flight.DepartureDate:dd MMM yyyy, h:mm tt} | {ticketClass}: {flight.GetPrice(ticketClass):C}");
+            string departureAirportName = string.IsNullOrWhiteSpace(flight.DepartureAirport)
+                ? "not specified"
+                : flight.DepartureAirport;
+            string arrivalAirportName = string.IsNullOrWhiteSpace(flight.ArrivalAirport)
+                ? "not specified"
+                : flight.ArrivalAirport;
+            string departureTime = flight.DepartureDate == default
+                ? "not specified"
+                : flight.DepartureDate.ToString("dd MMM yyyy, h:mm tt");
+
+            Console.WriteLine($"Flight: {flight.Id}");
+            Console.WriteLine($"  Route: {flight.DepartureCountry} to {flight.DestinationCountry}");
+            Console.WriteLine($"  Airports: {departureAirportName} to {arrivalAirportName}");
+            Console.WriteLine($"  Departure date/time: {departureTime}");
+            Console.WriteLine($"  {ticketClass} price: {flight.GetPrice(ticketClass):C}\n");
         }
 
         Console.Write("Enter the flight ID to book (or leave blank to return): ");
@@ -177,19 +189,49 @@ public class PassengerMenu
         }
     }
 
-    private void ChangeBookingClass(string passengerId)
+    private void ModifyBooking(string passengerId)
     {
         Console.Write("Booking ID to change: ");
         string bookingId = Console.ReadLine() ?? "";
-        TicketClass ticketClass = ReadTicketClass();
-
-        if (bookingService.UpdateBookingTicketClass(bookingId, passengerId, ticketClass))
+        var booking = bookingService.GetBookingForPassenger(bookingId, passengerId);
+        if (booking == null)
         {
-            Console.WriteLine("Booking class updated.");
+            Console.WriteLine("Booking not found.");
+            return;
+        }
+
+        Console.WriteLine($"Current flight: {booking.FlightId}, class: {booking.TicketClass}, price: {booking.PricePaid:C}");
+        Console.Write("New flight ID (leave blank to keep current flight): ");
+        string flightId = Console.ReadLine() ?? "";
+        if (string.IsNullOrWhiteSpace(flightId)) flightId = booking.FlightId;
+
+        var flight = bookingService.FindFlight(flightId);
+        if (flight == null)
+        {
+            Console.WriteLine("Flight not found.");
+            return;
+        }
+
+        Console.WriteLine(
+            $"Selected flight: {flight.DepartureCountry} ({flight.DepartureAirport}) to " +
+            $"{flight.DestinationCountry} ({flight.ArrivalAirport}) on {flight.DepartureDate:g}");
+        TicketClass ticketClass = ReadTicketClass();
+        decimal newPrice = flight.GetPrice(ticketClass);
+        Console.WriteLine($"New price: {newPrice:C}");
+        Console.Write("Save these changes? (y/n): ");
+        if (!string.Equals(Console.ReadLine()?.Trim(), "y", StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("No changes made.");
+            return;
+        }
+
+        if (bookingService.UpdateBooking(bookingId, passengerId, flight.Id, ticketClass))
+        {
+            Console.WriteLine("Booking updated.");
         }
         else
         {
-            Console.WriteLine("Booking not found.");
+            Console.WriteLine("Booking could not be updated.");
         }
     }
 

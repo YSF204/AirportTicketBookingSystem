@@ -38,5 +38,13 @@
     "TicketClass": 1,
     "PricePaid": 125,
     "BookingDate": "2026-10-25T16:34:21.4364904Z"
+  },
+  {
+    "Id": "9a36c4e5-4f6e-40a0-bd81-1750fc8ec904",
+    "PassengerId": "5",
+    "FlightId": "FL003",
+    "TicketClass": 3,
+    "PricePaid": 500,
+    "BookingDate": "2026-10-26T12:32:13.4882518Z"
   }
 ]

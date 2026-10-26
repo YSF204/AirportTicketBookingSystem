@@ -18,23 +18,9 @@ namespace AirportTicketBookingSystem.Services
             this.flightValidator = flightValidator ?? new FlightValidator();
         }
 
-        public List<string> AddFlight(Flight flight)
-        {
-            var flights = flightRepository.GetFlights();
-            var errors = flightValidator.ValidateFlight(flight, flights);
+        public List<string> GetValidationDetails() => flightValidator.GetValidationDetails();
 
-            if (errors.Count > 0)
-            {
-                return errors;
-            }
-
-            flights.Add(flight);
-            flightRepository.SaveFlights(flights);
-
-            return errors;
-        }
-
-        public List<string> AddFlights(List<Flight> newFlights, out int addedCount)
+        public List<string> AddFlights(List<Flight?> newFlights, out int addedCount)
         {
             var existingFlights = flightRepository.GetFlights();
             var flightsToCheck = new List<Flight>(existingFlights);
@@ -44,6 +30,11 @@ namespace AirportTicketBookingSystem.Services
             for (int i = 0; i < newFlights.Count; i++)
             {
                 var flight = newFlights[i];
+                if (flight == null)
+                {
+                    continue;
+                }
+
                 var flightErrors = flightValidator.ValidateFlight(flight, flightsToCheck);
 
                 if (flightErrors.Count > 0)

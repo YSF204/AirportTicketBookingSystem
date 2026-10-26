@@ -30,15 +30,16 @@ public class ManagerMenu
             Console.WriteLine("4. Find bookings by ticket class");
             Console.WriteLine("3. Find bookings by price range");
             Console.WriteLine("2. Find bookings by flight");
-            Console.WriteLine("1. Add a flight");
             Console.WriteLine("0. Exit");
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("A. Load Flights from CSV file");
+            Console.WriteLine("S. Show flight validation rules");
             Console.Write("Choose an option: ");
 
             switch (Console.ReadLine()?.ToUpper())
             {
                 case "A": LoadFlightsFromCSV(); break;
+                case "S": ShowFlightValidationRules(); break;
                 case "10": GetBookingsByArrivalAirport(); break;
                 case "9": GetBookingsByDepartureAirport(); break;
                 case "8": GetBookingsByDestinationCountry(); break;
@@ -48,7 +49,6 @@ public class ManagerMenu
                 case "4": GetBookingByTicketClass(); break;
                 case "3": FindBookingByPrice(); break;
                 case "2": FindBookingsByFlight(); break;
-                case "1": AddFlight(); break;
                 case "0": return;
                 default:
                     Console.WriteLine("Invalid option. Please choose a listed option.");
@@ -57,46 +57,11 @@ public class ManagerMenu
         }
     }
 
-    private void AddFlight()
+    private void ShowFlightValidationRules()
     {
-        Console.Write("Departure country: ");
-        string departureCountry = Console.ReadLine() ?? "";
-        Console.Write("Destination country: ");
-        string destinationCountry = Console.ReadLine() ?? "";
-        Console.Write("Departure airport: ");
-        string departureAirport = Console.ReadLine() ?? "";
-        Console.Write("Arrival airport: ");
-        string arrivalAirport = Console.ReadLine() ?? "";
-
-        decimal economyPrice = ReadDecimal("Economy price: ");
-        decimal businessPrice = ReadDecimal("Business price: ");
-        decimal firstClassPrice = ReadDecimal("First Class price: ");
-        DateTime departureDate = ReadDepartureDateTime();
-
-        var flight = new Flight
+        foreach (string detail in flightService.GetValidationDetails())
         {
-            Id = Guid.NewGuid().ToString(),
-            DepartureCountry = departureCountry,
-            DestinationCountry = destinationCountry,
-            DepartureAirport = departureAirport,
-            ArrivalAirport = arrivalAirport,
-            EconomyPrice = economyPrice,
-            BusinessPrice = businessPrice,
-            FirstClassPrice = firstClassPrice,
-            DepartureDate = departureDate
-        };
-
-        List<string> errors = flightService.AddFlight(flight);
-        if (errors.Count == 0)
-        {
-            Console.WriteLine("Flight added successfully.");
-            return;
-        }
-
-        Console.WriteLine("Flight was not added:");
-        foreach (string error in errors)
-        {
-            Console.WriteLine($"- {error}");
+            Console.WriteLine(detail);
         }
     }
 
@@ -111,24 +76,6 @@ public class ManagerMenu
             }
 
             Console.WriteLine("Please enter a valid number.");
-        }
-    }
-
-    private DateTime ReadDepartureDateTime()
-    {
-        while (true)
-        {
-            Console.Write("Departure date (e.g. 30 Oct 2026): ");
-            string? dateInput = Console.ReadLine();
-            Console.Write("Departure time (e.g. 2:30 PM): ");
-            string? timeInput = Console.ReadLine();
-
-            if (DateTime.TryParse($"{dateInput} {timeInput}", out DateTime departureDate))
-            {
-                return departureDate;
-            }
-
-            Console.WriteLine("I couldn't understand that date and time. Please try again.\n");
         }
     }
 
@@ -270,7 +217,29 @@ public class ManagerMenu
 
     private void LoadFlightsFromCSV()
     {
-        var flights = Reader.ReadCsv();
+        Console.Write("CSV file path (press Enter for Flight.csv in the project folder): ");
+        string? path = Console.ReadLine();
+        List<Flight?> flights;
+        List<string> importErrors;
+        try
+        {
+            flights = Reader.ReadCsv(path, out importErrors);
+        }
+        catch (IOException error)
+        {
+            Console.WriteLine($"Could not read the CSV file: {error.Message}");
+            return;
+        }
+        catch (UnauthorizedAccessException error)
+        {
+            Console.WriteLine($"Could not read the CSV file: {error.Message}");
+            return;
+        }
+
+        foreach (string error in importErrors)
+        {
+            Console.WriteLine(error);
+        }
 
         if (flights.Count == 0)
         {

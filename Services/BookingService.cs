@@ -3,7 +3,6 @@
 using AirportTicketBookingSystem.Models;
 using AirportTicketBookingSystem.Repositories;
 using System.Linq;
-using System.Net;
 namespace AirportTicketBookingSystem.Services
 {
     public class BookingService
@@ -26,7 +25,7 @@ namespace AirportTicketBookingSystem.Services
         public Flight? FindFlight(string flightId)
         {
             var flights = flightRepository.GetFlights();
-            return flights.FirstOrDefault(f => f.Id == flightId);
+            return flights.FirstOrDefault(f => f.Id.Equals(flightId.Trim(), StringComparison.OrdinalIgnoreCase));
         }
 
         public Passenger? FindPassenger(string passengerId)
@@ -83,8 +82,8 @@ namespace AirportTicketBookingSystem.Services
             var booking = new Booking
             {
                 Id = Guid.NewGuid().ToString(),
-                PassengerId = passengerId,
-                FlightId = flightId,
+                PassengerId = passenger.Id,
+                FlightId = flight.Id,
                 TicketClass = ticketClass,
                 PricePaid = pricePaid,
                 BookingDate = DateTime.UtcNow
@@ -101,14 +100,16 @@ namespace AirportTicketBookingSystem.Services
         public List<Booking> GetBookingsForPassenger(string passengerId)
         {
             var bookings = bookingRepository.GetBookings();
-            return bookings.Where(b => b.PassengerId == passengerId).ToList();
+            return bookings.Where(b => b.PassengerId.Equals(passengerId, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public bool CancelBooking(string bookingId, string passengerId)
         {
 
             var bookings = bookingRepository.GetBookings();
-            var booking = bookings.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
+            var booking = bookings.FirstOrDefault(b =>
+                b.Id.Equals(bookingId.Trim(), StringComparison.OrdinalIgnoreCase) &&
+                b.PassengerId.Equals(passengerId, StringComparison.OrdinalIgnoreCase));
             if (booking == null)
             {
                 return false;
@@ -122,37 +123,32 @@ namespace AirportTicketBookingSystem.Services
 
 
 
-        public bool UpdateBookingTicketClass(string bookingId, string passengerId, TicketClass ticketClass)
+        public bool UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass)
         {
-            var booking = bookingRepository.GetBookings();
-            var existingBookings = booking.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
+            if (!Enum.IsDefined(ticketClass)) return false;
 
-            if (existingBookings == null)
-            {
-                return false;
-            }
-            ;
+            var bookings = bookingRepository.GetBookings();
+            var booking = bookings.FirstOrDefault(b =>
+                b.Id.Equals(bookingId.Trim(), StringComparison.OrdinalIgnoreCase) &&
+                b.PassengerId.Equals(passengerId, StringComparison.OrdinalIgnoreCase));
 
-            var flight = FindFlight(existingBookings.FlightId);
-            if (flight == null)
-            {
-                return false;
-            }
+            var flight = FindFlight(flightId);
+            if (booking == null || flight == null) return false;
 
-
-            existingBookings.TicketClass = ticketClass;
-            existingBookings.PricePaid = flight.GetPrice(ticketClass);
-
-            bookingRepository.SaveBookings(booking);
+            booking.FlightId = flight.Id;
+            booking.TicketClass = ticketClass;
+            booking.PricePaid = flight.GetPrice(ticketClass);
+            bookingRepository.SaveBookings(bookings);
 
             return true;
-
         }
 
         public Booking? GetBookingForPassenger(string bookingId, string passengerId)
         {
             var bookings = bookingRepository.GetBookings();
-            return bookings.FirstOrDefault(b => b.Id == bookingId && b.PassengerId == passengerId);
+            return bookings.FirstOrDefault(b =>
+                b.Id.Equals(bookingId.Trim(), StringComparison.OrdinalIgnoreCase) &&
+                b.PassengerId.Equals(passengerId, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Booking> GetBookingsForFlight(string flightId)
