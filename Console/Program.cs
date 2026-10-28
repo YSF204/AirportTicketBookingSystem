@@ -1,10 +1,13 @@
 using System.Text.Json;
-using AirportTicketBookingSystem.Menus;
-using AirportTicketBookingSystem.Repositories;
-using AirportTicketBookingSystem.Services;
+using AirportTicketBookingSystem.ConsoleLayer.Menus;
+using AirportTicketBookingSystem.DataAccess.Repositories.Bookings;
+using AirportTicketBookingSystem.DataAccess.Repositories.Flights;
+using AirportTicketBookingSystem.DataAccess.Repositories.Passengers;
+using AirportTicketBookingSystem.Business.Services.Bookings;
+using AirportTicketBookingSystem.Business.Services.Flights;
 
 var flightRepository = new FlightRepository();
-var bookingRepository = new BookingRepository();
+var bookingRepository = new BookingRepository(flightRepository);
 var passengerRepository = new PassengerRepository();
 
 
@@ -46,4 +49,8 @@ catch (IOException error)
 catch (UnauthorizedAccessException error)
 {
     Console.WriteLine($"A data file could not be accessed: {error.Message}");
+}
+catch (Exception error)
+{
+    Console.WriteLine($"An unexpected error occurred: {error.Message}");
 }

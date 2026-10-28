@@ -1,5 +1,4 @@
-namespace AirportTicketBookingSystem.Repositories
-{
+namespace AirportTicketBookingSystem.DataAccess.Storage;
     public class JsonRepository<T>
     {
 
@@ -37,5 +36,3 @@ namespace AirportTicketBookingSystem.Repositories
         }
 
     }
-}
-

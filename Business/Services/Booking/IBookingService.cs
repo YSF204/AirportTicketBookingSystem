@@ -1,7 +1,6 @@
-﻿using AirportTicketBookingSystem.Models;
+﻿using AirportTicketBookingSystem.DataAccess.Entities;
 
-namespace AirportTicketBookingSystem.Services
-{
+namespace AirportTicketBookingSystem.Business.Services.Bookings;
 
     /// <summary>
     /// This interface defines the operations for the required services for the booking system.
@@ -37,14 +36,17 @@ namespace AirportTicketBookingSystem.Services
         List<Booking> GetBookingsForPassenger(string passengerId);
 
         /// <summary>
-        /// it cancels the booking with the specified booking Id for the given passenger Id.
+        /// Cancels the specified passenger's booking.
         /// </summary>
-        bool CancelBooking(string bookingId, string passengerId);
+        /// <exception cref="KeyNotFoundException">The booking does not exist for this passenger.</exception>
+        void CancelBooking(string bookingId, string passengerId);
 
         /// <summary>
-        /// it updates the booking with the specified booking Id for the given passenger Id, flight Id, and ticket class.
+        /// Updates the specified passenger's booking to use the supplied flight and ticket class.
         /// </summary>
-        bool UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass);
+        /// <exception cref="KeyNotFoundException">The booking or flight could not be found.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The ticket class is not valid.</exception>
+        void UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass);
 
         /// <summary>
         /// it retrieves the booking with the specified booking Id for the given passenger Id.
@@ -101,4 +103,4 @@ namespace AirportTicketBookingSystem.Services
 
 
     }
-}
+

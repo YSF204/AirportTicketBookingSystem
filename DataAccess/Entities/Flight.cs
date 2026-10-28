@@ -1,8 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AirportTicketBookingSystem.Models
-{
+namespace AirportTicketBookingSystem.DataAccess.Entities;
     public class Flight
     {
         [Display(Name = "Flight ID")]
@@ -59,4 +58,3 @@ namespace AirportTicketBookingSystem.Models
     }
 
     
-}

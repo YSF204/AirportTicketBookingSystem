@@ -1,7 +1,8 @@
-using AirportTicketBookingSystem.Models;
-using AirportTicketBookingSystem.Services;
+using AirportTicketBookingSystem.DataAccess.Entities;
+using AirportTicketBookingSystem.Business.Services.Bookings;
+using AirportTicketBookingSystem.Business.Services.Flights;
 
-namespace AirportTicketBookingSystem.Menus;
+namespace AirportTicketBookingSystem.ConsoleLayer.Menus;
 
 public class PassengerMenu
 {
@@ -179,13 +180,14 @@ public class PassengerMenu
         Console.Write("Booking ID to cancel: ");
         string bookingId = Console.ReadLine() ?? "";
 
-        if (bookingService.CancelBooking(bookingId, passengerId))
+        try
         {
+            bookingService.CancelBooking(bookingId, passengerId);
             Console.WriteLine("Booking cancelled.");
         }
-        else
+        catch (KeyNotFoundException error)
         {
-            Console.WriteLine("Booking not found.");
+            Console.WriteLine(error.Message);
         }
     }
 
@@ -225,13 +227,14 @@ public class PassengerMenu
             return;
         }
 
-        if (bookingService.UpdateBooking(bookingId, passengerId, flight.Id, ticketClass))
+        try
         {
+            bookingService.UpdateBooking(bookingId, passengerId, flight.Id, ticketClass);
             Console.WriteLine("Booking updated.");
         }
-        else
+        catch (KeyNotFoundException error)
         {
-            Console.WriteLine("Booking could not be updated.");
+            Console.WriteLine(error.Message);
         }
     }
 

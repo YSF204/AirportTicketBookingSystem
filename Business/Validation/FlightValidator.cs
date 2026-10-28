@@ -2,10 +2,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using AirportTicketBookingSystem.Models;
+using AirportTicketBookingSystem.DataAccess.Entities;
 
-namespace AirportTicketBookingSystem.Validators
-{
+namespace AirportTicketBookingSystem.Business.Validation;
     public class FlightValidator
     {
         public List<string> GetValidationDetails()
@@ -129,4 +128,4 @@ namespace AirportTicketBookingSystem.Validators
             return errors;
         }
     }
-}
+

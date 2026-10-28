@@ -1,16 +1,18 @@
-﻿using AirportTicketBookingSystem.Models;
+﻿using AirportTicketBookingSystem.DataAccess.Entities;
 using System.Globalization;
 using Microsoft.VisualBasic.FileIO;
-namespace AirportTicketBookingSystem.Util
-{
+namespace AirportTicketBookingSystem.DataAccess.Import;
     public class Reader
     {
 
         public static List<Flight?> ReadCsv(string? path, out List<string> errors)
         {
-            string filePath = string.IsNullOrWhiteSpace(path)
-                ? Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Flight.csv"))
-                : Path.GetFullPath(path);
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("A CSV file path is required.", nameof(path));
+            }
+
+            string filePath = Path.GetFullPath(path);
             errors = new List<string>();
             var flights = new List<Flight?>();
 
@@ -56,4 +58,3 @@ namespace AirportTicketBookingSystem.Util
             return flights;
         }
     }
-}

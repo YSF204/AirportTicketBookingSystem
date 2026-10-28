@@ -1,9 +1,10 @@
 using System.Globalization;
-using AirportTicketBookingSystem.Models;
-using AirportTicketBookingSystem.Services;
-using AirportTicketBookingSystem.Util;
+using AirportTicketBookingSystem.DataAccess.Entities;
+using AirportTicketBookingSystem.Business.Services.Bookings;
+using AirportTicketBookingSystem.Business.Services.Flights;
+using AirportTicketBookingSystem.DataAccess.Import;
 
-namespace AirportTicketBookingSystem.Menus;
+namespace AirportTicketBookingSystem.ConsoleLayer.Menus;
 
 public class ManagerMenu
 {
@@ -217,7 +218,7 @@ public class ManagerMenu
 
     private void LoadFlightsFromCSV()
     {
-        Console.Write("CSV file path (press Enter for Flight.csv in the project folder): ");
+        Console.Write("CSV file path: ");
         string? path = Console.ReadLine();
         List<Flight?> flights;
         List<string> importErrors;
@@ -235,6 +236,11 @@ public class ManagerMenu
             Console.WriteLine($"Could not read the CSV file: {error.Message}");
             return;
         }
+        catch (ArgumentException error)
+        {
+            Console.WriteLine($"Invalid CSV file path: {error.Message}");
+            return;
+        }
 
         foreach (string error in importErrors)
         {
@@ -247,12 +253,13 @@ public class ManagerMenu
             return;
         }
 
-        var errors = flightService.AddFlights(flights, out int addedCount);
-        foreach (var error in errors)
+        var results = flightService.AddFlights(flights);
+        foreach (var error in results.SelectMany(result => result.Errors))
         {
             Console.WriteLine(error);
         }
 
+        int addedCount = results.Count(result => result.Added);
         Console.WriteLine($"Imported {addedCount} of {flights.Count} flights.");
     }
 }
