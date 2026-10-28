@@ -1,7 +1,6 @@
 ﻿
 
-namespace AirportTicketBookingSystem.Models
-{
+namespace AirportTicketBookingSystem.DataAccess.Entities;
     public class Booking
     {
       public  string Id { get; set; } = string.Empty;
@@ -12,4 +11,4 @@ namespace AirportTicketBookingSystem.Models
       public  DateTime BookingDate { get; set; } = DateTime.Now;
 
     }
-}
+

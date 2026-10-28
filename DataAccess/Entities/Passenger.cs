@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AirportTicketBookingSystem.Models
-{
+namespace AirportTicketBookingSystem.DataAccess.Entities;
     public class Passenger
     {
       public string Id { get; set; } = string.Empty;
@@ -11,4 +10,4 @@ namespace AirportTicketBookingSystem.Models
         
       public string Email { get; set; } = string.Empty;
     }
-}
+
