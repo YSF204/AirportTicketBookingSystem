@@ -19,7 +19,7 @@
     "EconomyPrice": 150,
     "BusinessPrice": 0,
     "FirstClassPrice": 0,
-    "DepartureDate": "2026-11-03:00:00"
+    "DepartureDate": "2026-11-03T00:00:00"
   },
   {
     "Id": "FL003",

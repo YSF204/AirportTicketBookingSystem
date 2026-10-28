@@ -109,13 +109,13 @@ public class PassengerMenu
         decimal? maxPrice = ReadOptionalPrice();
 
         var flights = flightService.SearchFlights(
-            departureCountry,
-            destinationCountry,
-            departureDate,
-            departureAirport,
-            arrivalAirport,
-            maxPrice,
-            maxPrice.HasValue ? ticketClass : null);
+            departureCountry: departureCountry,
+            destinationCountry: destinationCountry,
+            departureDate: departureDate,
+            departureAirport: departureAirport,
+            arrivalAirport: arrivalAirport,
+            maxPrice: maxPrice,
+            ticketClass: maxPrice.HasValue ? ticketClass : null);
 
         if (flights.Count == 0)
         {
