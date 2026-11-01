@@ -40,11 +40,11 @@ public interface IBookingRepository
     /// <summary>Returns bookings for flights arriving at the specified airport.</summary>
     List<Booking> GetBookingsByArrivalAirport(string airport);
 
-    /// <summary>Cancels a passenger's booking; returns false if it is not found.</summary>
-    bool CancelBooking(string bookingId, string passengerId);
+    /// <summary>Deletes the supplied booking.</summary>
+    void CancelBooking(Booking booking);
 
-    /// <summary>Updates a passenger's booking; returns false if it is not found.</summary>
-    bool UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass, decimal pricePaid);
+    /// <summary>Updates a passenger's booking</summary>
+    void UpdateBooking(Booking booking);
 
     /// <summary>Saves the supplied bookings.</summary>
     void SaveBookings(List<Booking> bookings);
