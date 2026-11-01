@@ -39,14 +39,14 @@ namespace AirportTicketBookingSystem.Business.Services.Bookings;
         /// Cancels the specified passenger's booking.
         /// </summary>
         /// <exception cref="KeyNotFoundException">The booking does not exist for this passenger.</exception>
-        void CancelBooking(string bookingId, string passengerId);
+        void Cancel(string bookingId, string passengerId);
 
         /// <summary>
-        /// Updates the specified passenger's booking to use the supplied flight and ticket class.
+        /// Updates the supplied booking.
         /// </summary>
         /// <exception cref="KeyNotFoundException">The booking or flight could not be found.</exception>
         /// <exception cref="ArgumentOutOfRangeException">The ticket class is not valid.</exception>
-        void UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass);
+        void Update(Booking booking);
 
         /// <summary>
         /// it retrieves the booking with the specified booking Id for the given passenger Id.

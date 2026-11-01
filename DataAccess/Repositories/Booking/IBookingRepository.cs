@@ -40,12 +40,10 @@ public interface IBookingRepository
     /// <summary>Returns bookings for flights arriving at the specified airport.</summary>
     List<Booking> GetBookingsByArrivalAirport(string airport);
 
-    /// <summary>Deletes the supplied booking.</summary>
-    void CancelBooking(Booking booking);
-
     /// <summary>Updates a passenger's booking</summary>
     void UpdateBooking(Booking booking);
 
     /// <summary>Saves the supplied bookings.</summary>
     void SaveBookings(List<Booking> bookings);
+
 }

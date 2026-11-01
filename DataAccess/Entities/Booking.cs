@@ -9,6 +9,7 @@ namespace AirportTicketBookingSystem.DataAccess.Entities;
       public  TicketClass TicketClass { get; set; } = TicketClass.Economy;
       public  decimal PricePaid { get; set; } = 0m;
       public  DateTime BookingDate { get; set; } = DateTime.Now;
+      public  bool IsCancelled { get; set; } = false;
 
     }
 

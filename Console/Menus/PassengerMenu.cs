@@ -182,7 +182,7 @@ public class PassengerMenu
 
         try
         {
-            bookingService.CancelBooking(bookingId, passengerId);
+            bookingService.Cancel(bookingId, passengerId);
             Console.WriteLine("Booking cancelled.");
         }
         catch (KeyNotFoundException error)
@@ -229,7 +229,9 @@ public class PassengerMenu
 
         try
         {
-            bookingService.UpdateBooking(bookingId, passengerId, flight.Id, ticketClass);
+            booking.FlightId = flight.Id;
+            booking.TicketClass = ticketClass;
+            bookingService.Update(booking);
             Console.WriteLine("Booking updated.");
         }
         catch (KeyNotFoundException error)
