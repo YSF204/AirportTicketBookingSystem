@@ -81,8 +81,13 @@ namespace AirportTicketBookingSystem.Business.Services.Bookings;
             return bookingRepository.GetBookingsByPassenger(passengerId);
         }
 
-        public void CancelBooking(string bookingId, string passengerId) =>
-            bookingRepository.CancelBooking(bookingId, passengerId);
+        public void CancelBooking(string bookingId, string passengerId)
+        {
+            if (!bookingRepository.CancelBooking(bookingId, passengerId))
+            {
+                throw new KeyNotFoundException($"Booking '{bookingId}' was not found for passenger '{passengerId}'.");
+            }
+        }
 
         public void UpdateBooking(string bookingId, string passengerId, string flightId, TicketClass ticketClass)
         {
@@ -97,12 +102,15 @@ namespace AirportTicketBookingSystem.Business.Services.Bookings;
                 throw new KeyNotFoundException($"Flight '{flightId}' was not found.");
             }
 
-            bookingRepository.UpdateBooking(
+            if (!bookingRepository.UpdateBooking(
                 bookingId,
                 passengerId,
                 flight.Id,
                 ticketClass,
-                flight.GetPrice(ticketClass));
+                flight.GetPrice(ticketClass)))
+            {
+                throw new KeyNotFoundException($"Booking '{bookingId}' was not found for passenger '{passengerId}'.");
+            }
         }
 
         public Booking? GetBookingForPassenger(string bookingId, string passengerId) =>

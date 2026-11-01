@@ -11,7 +11,6 @@ public interface IPassengerRepository
     Passenger? FindPassenger(string passengerId);
 
     /// <summary>Adds a passenger.</summary>
-    /// <exception cref="ArgumentException">A passenger with the same ID already exists.</exception>
     void AddPassenger(Passenger passenger);
 
     /// <summary>Saves the supplied passengers.</summary>

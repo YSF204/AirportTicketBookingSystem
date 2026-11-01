@@ -83,20 +83,21 @@ namespace AirportTicketBookingSystem.DataAccess.Repositories.Bookings;
                 airport,
                 StringComparison.OrdinalIgnoreCase));
 
-        public void CancelBooking(string bookingId, string passengerId)
+        public bool CancelBooking(string bookingId, string passengerId)
         {
             var bookings = GetBookings();
             var booking = FindBooking(bookings, bookingId, passengerId);
             if (booking == null)
             {
-                throw new KeyNotFoundException($"Booking '{bookingId}' was not found for passenger '{passengerId}'.");
+                return false;
             }
 
             bookings.Remove(booking);
             SaveBookings(bookings);
+            return true;
         }
 
-        public void UpdateBooking(
+        public bool UpdateBooking(
             string bookingId,
             string passengerId,
             string flightId,
@@ -107,13 +108,14 @@ namespace AirportTicketBookingSystem.DataAccess.Repositories.Bookings;
             var booking = FindBooking(bookings, bookingId, passengerId);
             if (booking == null)
             {
-                throw new KeyNotFoundException($"Booking '{bookingId}' was not found for passenger '{passengerId}'.");
+                return false;
             }
 
             booking.FlightId = flightId;
             booking.TicketClass = ticketClass;
             booking.PricePaid = pricePaid;
             SaveBookings(bookings);
+            return true;
         }
 
         public void SaveBookings(List<Booking> bookings)
