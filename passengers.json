@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "P001",
+    "FullName": "John Smith",
+    "Email": "john@example.com"
+  },
+  {
+    "Id": "TEST-PAX-001",
+    "FullName": "Sample Passenger",
+    "Email": "sample.passenger@example.test"
+  },
+  {
+    "Id": "123",
+    "FullName": "",
+    "Email": ""
+  },
+  {
+    "Id": "5",
+    "FullName": "",
+    "Email": ""
+  }
+]

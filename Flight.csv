@@ -1,0 +1,4 @@
+Id,DepartureCountry,DestinationCountry,DepartureAirport,ArrivalAirport,EconomyPrice,BusinessPrice,FirstClassPrice,DepartureDate
+CSV-FLT-001,Palestine,Jordan,Hebron,Amman,120,300,550,2026-11-05 09:30
+CSV-FLT-002,Jordan,Turkey,Amman,Istanbul,180,420,800,2026-11-12 14:15
+CSV-FLT-003,United States,United Kingdom,JFK,LHR,500,1400,2800,2026-12-01 08:45
